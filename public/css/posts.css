@@ -1,3 +1,17 @@
 #posts-container {
-  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 25px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  width: 45%;
+  position: relative;
+  left: 45%;
+}
+
+#edit-form {
+  cursor: pointer;
+  width: 50%;
 }

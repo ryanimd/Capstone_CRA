@@ -76,12 +76,13 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <div>
+          <h1 id="title">FanFave</h1>
           <nav>
             <ul>
-              <li>
+              <li className="nav-links">
                 <Link to='/'>Home</Link>
               </li>
-              <li>
+              <li className="nav-links">
                 <Link to='/Add'>New Post</Link>
               </li>
             </ul>

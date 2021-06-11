@@ -14,7 +14,7 @@ class Posts extends React.Component {
               <input
                 required
                 type="text"
-                id="title"
+                id="name"
                 onChange={this.props.handleChange}
               />
               <label htmlFor="message">Message</label>
