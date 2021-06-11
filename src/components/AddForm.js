@@ -1,46 +1,59 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { withRouter } from 'react-router-dom'
 
-const AddForm = (props) => {
-  const newPost = { name: '', message: '' }
-  const [post, setPost] = useState(newPost)
-
-  const handleChange = (e) => {
-    setPost({post, [e.target.name]: e.target.value})
+class AddForm extends React.Component {
+  state = {
+    name: '',
+    message: '',
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    props.addPost(post)
-  }
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          value={post.name}
-          onChange={handleChange}
-        />
-        <br />
-        <br />
-        <label htmlFor="age">Message</label>
-        <input
-          id="message"
-          type="text"
-          name="message"
-          value={post.message}
-          onChange={handleChange}
-        />
-        <br />
-        <br />
-        <button>Add</button>
-      </form>
-    </div>
-  )
-
+  handleChange = (event) => {
+  this.setState({
+    [event.target.id]: event.target.value
+  })
 }
 
-export default AddForm
+  handleSubmit = (event) => {
+    this.props.addPost(this.state)
+      this.setState({
+        name: '',
+        message: '',
+      })
+  }
+
+  handleClick = (event) => {
+    event.preventDefault()
+    this.handleSubmit()
+    this.props.history.push('/')
+  }
+
+  render = () => {
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            onChange={this.handleChange}
+          />
+          <br />
+          <br />
+          <label htmlFor="message">Message</label>
+          <textarea
+            id="message"
+            type="text"
+            name="message"
+            onChange={this.handleChange}>
+          </textarea>
+          <br />
+          <br />
+          <button onClick={this.handleClick}>Add</button>
+        </form>
+      </div>
+    )
+  }
+}
+
+export default withRouter(AddForm)
