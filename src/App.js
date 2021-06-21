@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import AddForm from './components/AddForm'
 import Posts from './components/Posts'
+import Shows from './components/Shows'
 
 class App extends React.Component {
   state = {
@@ -42,6 +43,17 @@ class App extends React.Component {
       })
   }
 
+  getTvInfo = (event) => {
+    const userInput = event.target.value
+    axios
+      .get('http://api.tvmaze.com/search/shows?q=' + userInput)
+      .then(
+        (response) => {
+          console.log(response)
+        }
+      )
+  }
+
   updatePost = (event) => {
     event.preventDefault()
     const id = event.target.id
@@ -76,24 +88,29 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <h1 id="title">FanFave</h1>
-          <nav>
-            <ul>
-              <li className="nav-links">
-                <Link to='/'>Home</Link>
-              </li>
-              <li className="nav-links">
-                <Link to='/Add'>New Post</Link>
-              </li>
-            </ul>
-          </nav>
+          <div id="header">
+            <h1 id="title">FanFave</h1>
+            <nav className="tabs is-toggle is-toggle-rounded">
+              <ul>
+                <li className="nav-links">
+                  <Link to='/'>Home</Link>
+                </li>
+                <li className="nav-links">
+                  <Link to='/New'>New Post</Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
           <Switch>
-            <Route path='/Add'>
+            <Route path='/New'>
               <AddForm
                 addPost={this.addPost}
               />
             </Route>
             <Route path='/'>
+              <Shows
+                getTvInfo={this.getTvInfo}
+              />
               {this.state.posts.reverse().map((post) => {
                 return (
                   <Posts
